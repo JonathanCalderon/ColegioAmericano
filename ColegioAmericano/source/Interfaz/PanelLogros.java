@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Component;
 
 public class PanelLogros extends JPanel {
 
@@ -33,6 +34,7 @@ public class PanelLogros extends JPanel {
 	private InterfazPrincipal principal;
 
 	public PanelLogros (InterfazPrincipal principal){
+		setAlignmentY(Component.BOTTOM_ALIGNMENT);
 
 		this.principal = principal;
 
@@ -91,7 +93,9 @@ public class PanelLogros extends JPanel {
 
 
 		panelDerecha.add(butBuscar);
-		panelDerecha.add(new JLabel(""));
+		JLabel label = new JLabel("");
+		label.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		panelDerecha.add(label);
 		panelDerecha.add(butAgregar);
 		panelDerecha.add(new JLabel(""));
 		panelDerecha.add(butExportar);

@@ -11,6 +11,7 @@ import Mundo.Curso;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.awt.Component;
 
 public class InterfazPrincipal extends JFrame {
 
@@ -36,14 +37,20 @@ public class InterfazPrincipal extends JFrame {
 	
 	
 	public InterfazPrincipal (){
+		
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBackground(Color.WHITE);
 		setSize(new Dimension(1016, 388));
 		
 		mundo = new Americano();
+		setTitle("Colegio Americano");
 		tabPestañas = new JTabbedPane();
+		tabPestañas.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		tabPestañas.setBackground(Color.WHITE);
 		setLocationRelativeTo(null);
 		setPreferredSize(new Dimension(500, 200));
-		getContentPane().setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		
 		panelEstudiantes = new PanelEstudiantes(this);
 		
@@ -65,7 +72,7 @@ public class InterfazPrincipal extends JFrame {
 		
 		tabPestañas.addTab("Boletines", panelBoletines);
 		
-		getContentPane().add(tabPestañas, BorderLayout.NORTH);
+		add(tabPestañas, BorderLayout.CENTER);
 		
 	}
 	
@@ -82,4 +89,6 @@ public class InterfazPrincipal extends JFrame {
 		
 		return mundo.getCursos();
 	}
+	
+	
 }

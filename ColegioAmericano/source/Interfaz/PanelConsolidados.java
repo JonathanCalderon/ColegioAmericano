@@ -1,7 +1,7 @@
 package Interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
+
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -33,9 +33,9 @@ public class PanelConsolidados extends JPanel {
 
 		comboCursos = new JComboBox<>();
 
-		for (int i = 0; i < principal.darCursos().size(); i++) {
+		for (int i = 0; i < this.principal.darCursos().size(); i++) {
 
-			comboCursos.addItem(principal.darCursos().get(i).getNombre());
+			comboCursos.addItem(this.principal.darCursos().get(i).getNombre());
 		}
 
 		comboPeriodos = new JComboBox<>();

@@ -9,16 +9,19 @@ public class Estudiante {
 	
 	private Curso curso;
 	
+	private String id;
+	
 	private ArrayList<Nota> notas;
 
 	/**
 	 * @param nombre
 	 * @param curso
 	 */
-	public Estudiante(String nombre, Curso curso) {
+	public Estudiante(String nombre, Curso curso, String id) {
 		super();
 		this.nombre = nombre;
 		this.curso = curso;
+		this.id = id;
 		notas = new ArrayList<>();
 	}
 
@@ -34,6 +37,22 @@ public class Estudiante {
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
