@@ -6,13 +6,32 @@
 
 package Mundo;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
  *
  * @author Jhony
  */
 public class Americano {
+
+
+	/**
+	 * Conexión a la base de datos
+	 */
+	private Connection conexion;
+
+	/**
+	 * Conjunto de propiedades que contienen la configuración de la aplicación
+	 */
+	private Properties config;
 
 
 	private ArrayList <Estudiante> estudiantes;
@@ -23,7 +42,21 @@ public class Americano {
 
 	private ArrayList <Materia> materias;
 
-	public Americano (){
+	public Americano () throws Exception{
+
+
+		String archivoPropiedades = "./data/data.properties";
+
+		FileInputStream fis = new FileInputStream( archivoPropiedades );
+		config = new Properties( );
+		config.load( fis );
+		fis.close( );
+
+
+		// Establecer la ruta donde va a estar la base de datos.
+		// Derby utiliza la propiedad del sistema derby.system.home para saber donde están los datos
+		File data = new File( config.getProperty( "admin.db.path" ) );
+		System.setProperty( "derby.system.home", data.getAbsolutePath( ) );
 
 		estudiantes = new ArrayList<>();
 
@@ -36,6 +69,39 @@ public class Americano {
 		agregarCursosNormales();
 	}
 
+	/**
+     * Conecta el administrador a la base de datos
+     * @throws SQLException Se lanza esta excepción si hay problemas realizando la operación
+     * @throws Exception Se lanza esta excepción si hay problemas con los controladores
+     */
+    public void conectarABD( ) throws SQLException, Exception
+    {
+        String driver = config.getProperty( "admin.db.driver" );
+        Class.forName( driver ).newInstance( );
+
+        String url = config.getProperty( "admin.db.url" );
+        conexion = DriverManager.getConnection( url );
+        verificarInvariante();
+    }
+
+    /**
+     * Desconecta el administrador de la base de datos y la detiene
+     * @throws SQLException Se lanza esta excepción si hay problemas realizando la operación
+     */
+    public void desconectarBD( ) throws SQLException
+    { 
+        conexion.close( );
+        String down = config.getProperty( "admin.db.shutdown" );
+        try
+        {
+            DriverManager.getConnection( down );
+        }
+        catch( SQLException e )
+        {
+            // Al bajar la base de datos se produce siempre una excepción
+        }
+        verificarInvariante();
+    }
 
 	public void agregarCursosNormales(){
 
@@ -74,11 +140,26 @@ public class Americano {
 
 		Estudiante estudiante = new Estudiante(nombre, id);
 
-		if ( estudiantes.contains(estudiante))
+		if ( buscarEstudiantePorId(id)!=null)
 			throw new Exception("Ya existe un estudiante con los mismos datos");
 
 		estudiantes.add(estudiante);
 		cursoActual.agregarEstudiante(estudiante);
+	}
+
+	/**
+	 * Busca un estudiante con el mismo id, retorna null si no lo encuentra
+	 * @param id
+	 * @return
+	 */
+	private Estudiante buscarEstudiantePorId(String id) {
+	
+		for (int i = 0; i < estudiantes.size(); i++) {
+			
+			if ( estudiantes.get(i).getId().equals(id))
+				return estudiantes.get(i);
+		}
+		return null;
 	}
 
 	/**
@@ -195,22 +276,35 @@ public class Americano {
 	 * @return
 	 */
 	public ArrayList<String> buscarEstudiantesPorCurso(String nombreCurso) throws Exception{
-		
+
 		Curso curso = buscarCurso(nombreCurso);
-		
+
 		if ( curso == null)
 			throw new Exception("No existe ese curso");
-		
+
 		ArrayList<String> respuesta = new ArrayList<String>();
 		ArrayList<Estudiante> estudiantesPorCurso = curso.getEstudiantes();
-		
+
 		for (int i = 0; i < estudiantesPorCurso.size(); i++) {
-			
+
 			respuesta.add(estudiantesPorCurso.get(i).toString());
 		}
-		
+
 		return respuesta;
 	}
 
 
+
+    // -----------------------------------------------------------------
+    // Invariante
+    // -----------------------------------------------------------------
+    /**
+     * Verifica el invariante de la clase <br>
+     * <b>inv:</b><br>    
+     * config!=null <br>
+     */
+    private void verificarInvariante( )
+    {                
+        assert config != null : "Conjunto de propiedades inválidas";                           
+    }
 }

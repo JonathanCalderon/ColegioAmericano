@@ -45,7 +45,12 @@ public class InterfazPrincipal extends JFrame {
 		setBackground(Color.WHITE);
 		setSize(new Dimension(1316, 450));
 
-		mundo = new Americano();
+		try {
+			mundo = new Americano();
+		} catch (Exception e) {
+
+			JOptionPane.showMessageDialog(this, "Error cargando la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 		setTitle("Colegio Americano");
 		tabPestañas = new JTabbedPane();
 		tabPestañas.setAlignmentY(Component.BOTTOM_ALIGNMENT);
@@ -107,19 +112,23 @@ public class InterfazPrincipal extends JFrame {
 	/**
 	 * Invoca al mundo, y agrega un nuevo estudiante al sistema
 	 */
-	public void agregarEstudiante(String nombre, String nombreCurso, String id){
+	public boolean agregarEstudiante(String nombre, String nombreCurso, String id){
 
 		try {
 
 			if ( nombre.equals("")||nombreCurso.equals("")||id.equals(""))
 				JOptionPane.showMessageDialog(this, "Falta información", "Advertencia", JOptionPane.WARNING_MESSAGE);
 
-			else
+			else{
 				mundo.agregarEstudiante(nombre, nombreCurso, id);
+				return true;
+			}
 		} catch (Exception e) {
 
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error agregando estudiante", JOptionPane.ERROR_MESSAGE);
 		}
+		
+		return false;
 	}
 
 	public ArrayList<String> buscarEstudiantesPorCurso(String curso) {

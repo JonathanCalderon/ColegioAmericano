@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -102,8 +103,14 @@ public class PanelAcciones extends JPanel implements ActionListener{
 		
 		if ( command.equals(AGREGAR_ESTUDIANTE)){
 			
-			principal.agregarEstudiante(txtNombreEstudiante.getText().trim(), comboCursos.getSelectedItem().toString().trim()
+			boolean resp = principal.agregarEstudiante(txtNombreEstudiante.getText().trim(), comboCursos.getSelectedItem().toString().trim()
 					, txtIdEstudiante.getText().trim());
+			
+			if (resp)
+				JOptionPane.showMessageDialog(this, "Se agregó el estudiante correctamente", "Atención", JOptionPane.INFORMATION_MESSAGE);
+			
+			txtIdEstudiante.setText("");
+			txtNombreEstudiante.setText("");
 		}
 	}
 }
