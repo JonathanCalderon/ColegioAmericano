@@ -5,10 +5,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.*;
+
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class PanelLogros extends JPanel {
+public class PanelLogros extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -105,6 +108,12 @@ public class PanelLogros extends JPanel {
 		panelDerecha.add(butImprimir);		
 
 		add( panelDerecha, BorderLayout.EAST);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

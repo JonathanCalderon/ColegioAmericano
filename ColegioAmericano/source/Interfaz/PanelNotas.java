@@ -3,10 +3,12 @@ package Interfaz;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class PanelNotas extends JPanel {
+public class PanelNotas extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -63,6 +65,12 @@ public class PanelNotas extends JPanel {
 
 
 		add( panelArriba, BorderLayout.NORTH);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

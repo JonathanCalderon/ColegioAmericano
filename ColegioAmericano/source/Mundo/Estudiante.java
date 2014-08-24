@@ -7,7 +7,7 @@ public class Estudiante {
 	
 	private String nombre;
 	
-	private Curso curso;
+	
 	
 	private String id;
 	
@@ -17,10 +17,10 @@ public class Estudiante {
 	 * @param nombre
 	 * @param curso
 	 */
-	public Estudiante(String nombre, Curso curso, String id) {
+	public Estudiante(String nombre, String id) {
 		super();
 		this.nombre = nombre;
-		this.curso = curso;
+		
 		this.id = id;
 		notas = new ArrayList<>();
 	}
@@ -55,19 +55,9 @@ public class Estudiante {
 		this.id = id;
 	}
 
-	/**
-	 * @return the curso
-	 */
-	public Curso getCurso() {
-		return curso;
-	}
+	
 
-	/**
-	 * @param curso the curso to set
-	 */
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
+	
 
 	/**
 	 * @return the notas
@@ -85,6 +75,10 @@ public class Estudiante {
 	}
 	
 	
+	public String toString(){
+		
+		return nombre+ " - "+id;
+	}
 	
 	
 }

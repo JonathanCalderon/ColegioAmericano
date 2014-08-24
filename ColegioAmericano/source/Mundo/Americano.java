@@ -72,14 +72,20 @@ public class Americano {
 		if ( cursoActual == null)
 			throw new Exception("No existe ese curso");
 
-		Estudiante estudiante = new Estudiante(nombre, cursoActual, id);
+		Estudiante estudiante = new Estudiante(nombre, id);
 
 		if ( estudiantes.contains(estudiante))
 			throw new Exception("Ya existe un estudiante con los mismos datos");
 
 		estudiantes.add(estudiante);
+		cursoActual.agregarEstudiante(estudiante);
 	}
 
+	/**
+	 * Busca un curso dado su nombre
+	 * @param nombreCurso
+	 * @return
+	 */
 	public Curso buscarCurso(String nombreCurso) {
 
 		for (int i = 0; i < cursos.size(); i++) {
@@ -181,6 +187,29 @@ public class Americano {
 				return profesores.get(i);
 		}
 		return null;
+	}
+
+
+	/**
+	 * Retorna todos los estudiantes que se encuentren en un curso
+	 * @return
+	 */
+	public ArrayList<String> buscarEstudiantesPorCurso(String nombreCurso) throws Exception{
+		
+		Curso curso = buscarCurso(nombreCurso);
+		
+		if ( curso == null)
+			throw new Exception("No existe ese curso");
+		
+		ArrayList<String> respuesta = new ArrayList<String>();
+		ArrayList<Estudiante> estudiantesPorCurso = curso.getEstudiantes();
+		
+		for (int i = 0; i < estudiantesPorCurso.size(); i++) {
+			
+			respuesta.add(estudiantesPorCurso.get(i).toString());
+		}
+		
+		return respuesta;
 	}
 
 
