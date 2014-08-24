@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class PanelNotas extends JPanel implements ActionListener{
 
@@ -31,6 +33,7 @@ public class PanelNotas extends JPanel implements ActionListener{
 
 		setLayout( new BorderLayout());
 		comboCursos = new JComboBox<>();
+		comboCursos.setBackground(Color.LIGHT_GRAY);
 
 		for (int i = 0; i < principal.darCursos().size(); i++) {
 
@@ -38,7 +41,9 @@ public class PanelNotas extends JPanel implements ActionListener{
 		}
 
 		comboMaterias = new JComboBox<>();
+		comboMaterias.setBackground(Color.LIGHT_GRAY);
 		comboPeriodos = new JComboBox<>();
+		comboPeriodos.setBackground(Color.LIGHT_GRAY);
 		
 		comboPeriodos.addItem("PRIMERO");
 		comboPeriodos.addItem("SEGUNDO");
@@ -46,8 +51,10 @@ public class PanelNotas extends JPanel implements ActionListener{
 		comboPeriodos.addItem("CUARTO");
 
 		buscar = new JButton("BUSCAR");
+		buscar.setBackground(SystemColor.textHighlight);
 
 		JPanel panelArriba = new JPanel();
+		panelArriba.setBackground(Color.WHITE);
 
 		panelArriba.setLayout(new GridLayout(1,10));
 
